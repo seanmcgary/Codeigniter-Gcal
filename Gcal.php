@@ -1,5 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
-session_start();
 /**
  * CodeIgniter Google Calendar Library 
  * 
@@ -13,6 +12,11 @@ session_start();
  * LICENSE: GNU GENERAL PUBLIC LICENSE - Version 2, June 1991
  * 
  **/
+require_once 'Zend/Loader.php';
+Zend_Loader::loadClass('Zend_Gdata');
+Zend_Loader::loadClass('Zend_Gdata_AuthSub');
+Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
+Zend_Loader::loadClass('Zend_Gdata_Calendar');
  
 class Gcal {
 
@@ -24,11 +28,7 @@ class Gcal {
     //
     // require_once 'path/to/ZendGdata/library';
     
-    require_once 'Zend/Loader.php';
-	Zend_Loader::loadClass('Zend_Gdata');
-	Zend_Loader::loadClass('Zend_Gdata_AuthSub');
-	Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
-	Zend_Loader::loadClass('Zend_Gdata_Calendar');
+    
 	
 	function getAuthSubUrl($redirectUrl){	
 		// indicates the app will only access Google Calendar feeds
@@ -47,7 +47,7 @@ class Gcal {
 	}
 	
 	function outputCalendarList($client){
-		$gdata = new Zend_Gdata_Calendar($client);
+		$gdataCal = new Zend_Gdata_Calendar($client);
 		$calFeed = $gdataCal->getCalendarListFeed();
 		
 		return $calFeed;
@@ -82,7 +82,7 @@ class Gcal {
 		$query->setVisibility('private');
 		$query->setProjection('full');
 		$query->setQuery($eventQuery);
-		$eventFeed = $gdataCal->getCalendarEventFeed($query)
+		$eventFeed = $gdataCal->getCalendarEventFeed($query);
 	}
 	
 	function createEvent($client, $eventArray){
