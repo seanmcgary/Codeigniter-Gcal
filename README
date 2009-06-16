@@ -1,0 +1,26 @@
+Installation instructions for Codeigniter Google Calendar library
+
+1). Place the Gcal.php file in your Codeigniter syste/application/libraries direcetory
+
+2). Download the ZendGdata library from: http://framework.zend.com/download/gdata
+
+3). Install the ZendGdata library with one of the two options:
+	
+	a).
+		1). Make a directory anywhere on your machine/server
+		2). Place the ZendGdata directory in it
+		3). Open you php.ini file and find the include_path line.
+		4). Add to the include_path the directory that you placed the 
+			ZendGdata directory in. /your/directory/ZendGdata/library
+		5). Save and restart Apache	
+	
+	b).
+	 	1). Place the ZendGdata directory where you want.
+		2). In the Gcal.php library file, modify the require_once so that 
+			it points at the directory where ZendGdata is located.
+			IE: require_once("/your/directory/ZendGdata/Library/Zend/Loader.php");
+
+4). Place the calendar.php file in your controllers directory
+
+5). Have fun!!
+		
