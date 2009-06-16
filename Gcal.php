@@ -12,6 +12,12 @@
  * LICENSE: GNU GENERAL PUBLIC LICENSE - Version 2, June 1991
  * 
  **/
+// fire up the Zend Loader
+// we are going to assume that you have a path in
+// your php.ini set to look for the ZendGdata library
+// if you dont, then do the following:
+//
+// require_once 'path/to/ZendGdata/library';
 require_once 'Zend/Loader.php';
 Zend_Loader::loadClass('Zend_Gdata');
 Zend_Loader::loadClass('Zend_Gdata_AuthSub');
@@ -20,13 +26,7 @@ Zend_Loader::loadClass('Zend_Gdata_Calendar');
  
 class Gcal {
 
-    // fire up the Zend Loader
     
-    // we are going to assume that you have a path in
-    // your php.ini set to look for the ZendGdata library
-    // if you dont, then do the following:
-    //
-    // require_once 'path/to/ZendGdata/library';
     
     
 	
@@ -61,7 +61,7 @@ class Gcal {
 	}
 	
 	function calEventsByDateRange($client, $startDate, $endDate){
-		$gdataCal = Zend_Gdata_Calendar($client);
+		$gdataCal = new Zend_Gdata_Calendar($client);
 		$query = $gdataCal->newEventQuery();
 		$query->setUser('default');
 		$query->setVisibility('private');
@@ -83,6 +83,7 @@ class Gcal {
 		$query->setProjection('full');
 		$query->setQuery($eventQuery);
 		$eventFeed = $gdataCal->getCalendarEventFeed($query);
+		return $eventFeed;
 	}
 	
 	function createEvent($client, $eventArray){
@@ -105,7 +106,7 @@ class Gcal {
 		
 	}
 	
-	function createQuickEvent($clientr, $quickAddText){
+	function createQuickEvent($client, $quickAddText){
 		$gdataCal = new Zend_Gdata_Calendar($client);
 		$event = $gdataCal->newEventEntry();
 		$event->content = $gdataCal->newContent($quickAddText);
