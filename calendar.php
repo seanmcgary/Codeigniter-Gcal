@@ -14,7 +14,7 @@ session_start();
 		
 		function authSubLogin(){
 			
-			$redirect = "http://noodles.local/index.php/calendar/gCalDemo";
+			$redirect = "/index.php/calendar/gCalDemo";
 			$this->load->library('Gcal');
 			$authSubUrl = $this->gcal->getAuthSubUrl($redirect);
 			$login = array('loggedIn' => true, 'token' => "");
